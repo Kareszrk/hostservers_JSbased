@@ -1,0 +1,182 @@
+<!-- Content -->
+<section id="content">
+<!-- Content Row -->
+<section class="content-row content-row-color content-row-clouds">
+				<div class="container">
+					<header class="content-header content-header-small content-header-uppercase">
+						<h1>
+							Knowledge Base
+						</h1>
+						<p>
+							Have any questions? Share it with the community!
+						</p>
+					</header>
+				</div>
+			</section>
+      <section class="content-row">
+      				<div class="container">
+      					<div class="column-row align-center">
+      						<div class="column-50">
+      							<form class="form-full-width" onsubmit="sharePost(); return false;">
+      								<div class="form-row">
+                        <p id="nobugreportshere" style="color: red; display: none;">We are not reciving bug/glitch reports here. If you have any, please write us an email support@hostservers.pro</p>
+                        <p id="neversharecreditcarddetails" style="color: red; display: none;">Security tip: Never share your credit card details in posts and comments for your own safety!</p>
+                        <div class="column-row">
+      										<div class="column-50">
+      											<label for="form-name">Keywords</label>
+      											<input data-role="tagsinput" id="keywords_knowledge" type="text" name="name">
+      										</div>
+      										<div class="column-50">
+      											<label for="knowledge_category">Category</label>
+                            <input id="category_knowledge" type="text" list="category_knowledge_bar">
+                            <datalist id="category_knowledge_bar">
+                              <option value="Minecraft JAVA - Dashboard">
+                              <option value="Minecraft JAVA - Plugins">
+                              <option value="Minecraft Bedrock - Dashboard">
+                              <option value="Minecraft Bedrock - Plugins">
+                              <option value="Report a bug/glitch">
+                              <option value="SMS server">
+                              <option value="API server">
+                              <option value="API coding">
+                              <option value="Payment by balance">
+                              <option value="Payment by credit card">
+                            </datalist>
+      										</div>
+      									</div>
+      								</div>
+      								<div class="form-row">
+      									<label for="form-subject">Question</label>
+      									<input id="knowledge_question" type="text" name="subject">
+      								</div>
+      								<div class="form-row">
+      									<label for="form-message">Description</label>
+      									<textarea id="knowledge_description" name="message" cols="10" rows="10"></textarea>
+      								</div>
+      								<div class="form-row">
+      									<input id="hide_my_name_knowledge" type="checkbox" name="newsletter">
+      									<label for="form-newsletter">Hide my nickname <sup><i class="fa fa-question-circle" style="cursor: pointer; color: #844fe1;" data-modal-target="hide_my_name_info"></i></sup></label>
+      								</div>
+                      <div class="modal modal-small" data-modal="hide_my_name_info" data-modal-dismissible="true">
+        								<div class="modal-header">
+        									<h3>
+        										Hide my nickname
+        									</h3>
+        								</div>
+        								<div class="modal-content">
+        									<p>
+        									  If you enable this feature we will hide your name from your post and your comments under this post. Would you like to know more? If so, read our <a href="/terms" target="_blank">privacy agrement</a>.
+        									</p>
+        								</div>
+        							</div>
+      								<div class="form-row">
+      									<button id="submitButn" class="button-secondary"><i class="fas fa-comments icon-left"></i>Share post</button>
+      								</div>
+      							</form>
+      						</div>
+      					</div>
+      				</div>
+      			</section>
+            <section class="content-row content-row-gray">
+            				<div class="container">
+            					<div class="column-row align-center text-align-center">
+            						<div class="column-33">
+            							<i class="fas fa-life-ring icon-feature"></i>
+            							<h3>
+            							  Customer Support
+            							</h3>
+            							<p>
+                            If you have any question, share it with the community!
+            							</p>
+            						</div>
+            						<div class="column-33">
+            							<i class="fas fa-comments icon-feature"></i>
+            							<h3>
+            							  Multiple answers
+            							</h3>
+            							<p>
+            								You choose who helped you the best!
+            							</p>
+            						</div>
+            						<div class="column-33">
+            							<i class="fas fa-exclamation-triangle icon-feature"></i>
+            							<h3>
+            								Bounty Program
+            							</h3>
+            							<p>
+            								We are dedicated to keep our platform secure and offer a bounty for every reported security issue.
+            							</p>
+            						</div>
+            					</div>
+            				</div>
+            			</section>
+<script type="text/javascript">
+setInterval(function(){
+  if(document.getElementById("category_knowledge").value == "Report a bug/glitch"){
+    document.getElementById("nobugreportshere").style.display = "block";
+  } else if(document.getElementById("category_knowledge").value == "Payment by credit card"){
+    document.getElementById("neversharecreditcarddetails").style.display = "block";
+  } else {
+    document.getElementById("neversharecreditcarddetails").style.display = "none";
+    document.getElementById("nobugreportshere").style.display = "none";
+  }
+}, 500);
+
+function sharePost(){
+	$('#submitButn').prop('disabled', true);
+  var hide_my_name = document.getElementById("hide_my_name_knowledge").value;
+  var keywords_knowledge = document.getElementById("keywords_knowledge").value;
+  var category_knowledge = document.getElementById("category_knowledge").value;
+  var knowledge_question = document.getElementById("knowledge_question").value;
+  var knowledge_description = document.getElementById("knowledge_description").value;
+	if(keywords_knowledge.length > 0 && category_knowledge.length > 0 && knowledge_question.length > 0){
+		$.ajax({
+			type:"post",
+			url:"/knowledgebase",
+			data:"OP=shareNew_POST&keywords="+keywords_knowledge+"&category="+category_knowledge+"&question="+knowledge_question+"&description="+knowledge_description+"&hidename="+hide_my_name,
+			cache:false,
+			error: function(){
+				Swal.fire(
+					'Empty field(s)!',
+					'Please fill all the fields!',
+					'warning',
+				)
+				setTimeout(function(){
+					$('#submitButn').prop('disabled', false);
+				}, 1000);
+			},
+			success: function(response){
+				if(response[0]["stat"] == "success"){
+					window.location.replace(response[0]['message']);
+				} else if(response == "accessdenied"){
+					Swal.fire(
+						'Not logged in!',
+						'You must sign in, to perform this action!',
+						'error',
+					)
+				} else if(response == "notverified"){
+					location.reload();
+				} else {
+					Swal.fire(
+						response[0]["stat"],
+						response[0]["message"],
+						'warning',
+					)
+					setTimeout(function(){
+						$('#submitButn').prop('disabled', false);
+					}, 1000);
+				}
+			},
+			timeout: 3000,
+		});
+	} else {
+		Swal.fire(
+			'Empty field(s)!',
+			'Please fill all the fields!',
+			'warning',
+		)
+		setTimeout(function(){
+			$('#submitButn').prop('disabled', false);
+		}, 1000);
+	}
+}
+</script>

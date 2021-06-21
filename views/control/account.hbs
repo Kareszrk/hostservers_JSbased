@@ -1,0 +1,104 @@
+<section id="content">
+<section class="content-row content-row-gray">
+				<div class="container">
+					<div class="column-row">
+						<div class="column-50">
+              <div class="form-row" style="text-align: center;" id="asd">
+                <!-- <label for="form-name">Reedem code for balance</label><br>
+                <input id="form-name" type="text" name="name" placeholder="Reedem code for balance..." style="width: 60%;">  <button class="button-secondary">Reedem</button> -->
+								<table id="table_id" class="display table-has-caption">
+									<thead>
+										<caption>
+											Transactions
+										</caption>
+										<tr>
+											<th>Transaction Name</th>
+											<th>Transaction Worth</th>
+											<th>Transaction Date</th>
+										</tr>
+									</thead>
+									<tbody>
+										{{#each transactions}}
+										<tr>
+											<td>{{this.transaction_name}}</td>
+											<td>{{this.transaction_worth}}</td>
+											<td>{{this.recorded_at}}</td>
+										</tr>
+										{{/each}}
+									</tbody>
+								</table>
+              </div>
+						</div>
+						<div class="column-50">
+							<table class="table-has-caption">
+								<caption>
+									PROFILE INFORMATIONS
+								</caption>
+								<tbody>
+  									<tr>
+  										<td>Registered</td>
+  										<td><span id="____L_">{{profileDetails.[0]}}</span></td>
+  									</tr>
+                    <tr>
+  										<td>Loyality Credits</td>
+  										<td><span id="____LP_">LC {{profileDetails.[1]}}</span></td>
+  									</tr>
+                    <tr>
+  										<td>Balance</td>
+  										<td><span id="____PL_">€ {{profileDetails.[2]}}</span></td>
+  									</tr>
+                    <tr>
+  										<td>E-mail address</td>
+  										<td><span id="____P_">{{profileDetails.[3]}}</span></td>
+  									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<table id="table_id" class="display">
+			    <thead>
+			        <tr>
+			            <th>Column 1</th>
+			            <th>Column 2</th>
+			        </tr>
+			    </thead>
+			    <tbody>
+			        <tr>
+			            <td>Row 1 Data 1</td>
+			            <td>Row 1 Data 2</td>
+			        </tr>
+			        <tr>
+			            <td>Row 2 Data 1</td>
+			            <td>Row 2 Data 2</td>
+			        </tr>
+			    </tbody>
+			</table>
+
+</section>
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" />
+<script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript">
+$(document).ready( function () {
+    $('#table_id').DataTable();
+} );
+setInterval(function(){
+  get___Da_();
+}, 3000);
+function get___Da_(){
+  $.ajax({
+    type:"post",
+    url:"/pr",
+    data:"type=data_acc",
+    cache:false,
+    success: function(informations){
+      $("#____L_").html(informations[0]);
+      $("#____LP_").html("LC " + informations[1]);
+      $("#____PL_").html("€ " + informations[2]);
+      $("#____P_").html(informations[3]);
+    }
+  });
+}
+</script>

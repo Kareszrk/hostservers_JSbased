@@ -1,0 +1,324 @@
+<!-- Content -->
+<section id="content">
+{{#if homepage}}
+<!-- Content Row -->
+<section id="content">
+			<!-- Content Row -->
+			<section class="content-row content-row-color content-row-clouds content-row-half-height">
+				<div class="container">
+					<header class="content-header content-header-small content-header-uppercase">
+						<h1>
+							Knowledge Base
+						</h1>
+						<p>
+							Browse the knowledge base if you have any questions!
+						</p>
+					</header>
+					<div class="column-row align-center">
+						<div class="column-66">
+							<form class="form-full-width">
+								<div class="form-row">
+									<input type="search" name="search" placeholder="What are you looking for?">
+								</div>
+							</form>
+						</div>
+					</div>
+					<div class="column-row align-center">
+						<div class="column-50 text-align-center">
+								<small class="text-color-gray"><a href="/advertiesments">Advertise on HostServers.pro!</a></small>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- Content Row -->
+			<section class="content-row content-row-border-bottom">
+				<div class="container">
+					<div class="column-row">
+						<div class="column-50 content-sidebar-left">
+							<h3>
+								Latest Articles
+							</h3>
+							{{#each knowledgebase_array}}
+							{{#each this.latest}}
+							<p>
+								<a href="{{this.link}}"><i class="fas fa-file-alt icon-left"></i>{{this.question}}</a><br>
+								<small class="text-color-gray">
+									{{this.creationdate}}
+									<span class="text-margin-left"><i class="fas fa-thumbs-up icon-left"></i>{{this.likes}}</span>
+									<span class="text-margin-left"><i class="fas fa-comment icon-left"></i>2</span>
+								</small>
+							</p>
+							{{else}}
+							<p>No articles.</p>
+							{{/each}}
+							{{/each}}
+						</div>
+						<div class="column-50">
+							<h3>
+								Popular Articles
+							</h3>
+							<p>
+								{{#each knowledgebase_array}}
+								{{#each this.popularity}}
+								<p>
+									<a href="{{this.link}}"><i class="fas fa-file-alt icon-left"></i>{{this.question}}</a><br>
+									<small class="text-color-gray">
+										{{this.creationdate}}
+										<span class="text-margin-left"><i class="fas fa-thumbs-up icon-left"></i>{{this.likes}}</span>
+										<span class="text-margin-left"><i class="fas fa-comment icon-left"></i>2</span>
+									</small>
+								</p>
+								{{else}}
+								<p>No articles.</p>
+								{{/each}}
+								{{/each}}
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- Content Row -->
+			<section class="content-row content-row-border-bottom">
+				<div class="container">
+					<p class="text-align-center">
+						<a href="knowledge-base.html">Browse all 491 articles in our knowledge base<i class="fas fa-angle-right icon-right"></i></a>
+					</p>
+				</div>
+			</section>
+			<!-- Content Row -->
+			<section class="content-row content-row-gray">
+				<div class="container">
+					<div class="column-row column-row-flex-width">
+						<div class="column-flex">
+							<h4>
+								Networking
+							</h4>
+							<ul class="list-style-none">
+								<li>
+									<a href="#domains">Domains</a>
+								</li>
+								<li>
+									<a href="#interfaces">Interfaces</a>
+								</li>
+								<li>
+									<a href="#ip-protocols">IP Protocols</a>
+								</li>
+								<li>
+									<a href="#packet-filtering">Packet Filtering</a>
+								</li>
+								<li>
+									<a href="#firewall">Firewall</a>
+								</li>
+							</ul>
+						</div>
+						<div class="column-flex">
+							<h4>
+								Architecture
+							</h4>
+							<ul class="list-style-none">
+								<li>
+									<a href="#backups">Backups</a>
+								</li>
+								<li>
+									<a href="#block-storage">Block Storage</a>
+								</li>
+								<li>
+									<a href="#high-availability">High Availability</a>
+								</li>
+								<li>
+									<a href="#load-balancing">Load Balancing</a>
+								</li>
+								<li>
+									<a href="#monitoring">Monitoring</a>
+								</li>
+								<li>
+									<a href="#logging">Logging</a>
+								</li>
+								<li>
+									<a href="#optimization">Optimization</a>
+								</li>
+								<li>
+									<a href="#analytics">Analytics</a>
+								</li>
+								<li>
+									<a href="#replication">Replication</a>
+								</li>
+							</ul>
+						</div>
+						<div class="column-flex">
+							<h4>
+								Database
+							</h4>
+							<ul class="list-style-none">
+								<li>
+									<a href="#big-data">Big Data</a>
+								</li>
+								<li>
+									<a href="#data-analytics">Data Analytics</a>
+								</li>
+								<li>
+									<a href="#galera-cluster">Galera Cluster</a>
+								</li>
+								<li>
+									<a href="#postgresql">PostgreSQL</a>
+								</li>
+								<li>
+									<a href="#mariadb">MariaDB</a>
+								</li>
+								<li>
+									<a href="#nosql">NoSQL</a>
+								</li>
+								<li>
+									<a href="#redis">Redis</a>
+								</li>
+							</ul>
+						</div>
+						<div class="column-flex">
+							<h4>
+								Deployment
+							</h4>
+							<ul class="list-style-none">
+								<li>
+									<a href="#nginx">Nginx</a>
+								</li>
+								<li>
+									<a href="#apache">Apache</a>
+								</li>
+								<li>
+									<a href="#bash-scripting">Bash Scripting</a>
+								</li>
+								<li>
+									<a href="#optimization">PHP Optimization</a>
+								</li>
+								<li>
+									<a href="#nodejs">NodeJS Server</a>
+								</li>
+								<li>
+									<a href="#git-automation">Git Automation</a>
+								</li>
+								<li>
+									<a href="#flask-applications">Flask Applications</a>
+								</li>
+								<li>
+									<a href="#docker-isolation">Docker Isolation</a>
+								</li>
+								<li>
+									<a href="#capistrano">Capistrano</a>
+								</li>
+								<li>
+									<a href="#ansible">Ansible</a>
+								</li>
+							</ul>
+						</div>
+						<div class="column-flex">
+							<h4>
+								Systems
+							</h4>
+							<ul class="list-style-none">
+								<li>
+									<a href="#ubuntu">Ubuntu</a>
+								</li>
+								<li>
+									<a href="#debian">Debian</a>
+								</li>
+								<li>
+									<a href="#centos">CentOS</a>
+								</li>
+								<li>
+									<a href="#freebsd">FreeBSD</a>
+								</li>
+								<li>
+									<a href="#arch-linux">Arch Linux</a>
+								</li>
+								<li>
+									<a href="#windows">Windows</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</section>
+{{else}}
+{{#if knowledgeFound}}
+<section class="content-row">
+				<div class="container">
+					<article class="blog-article blog-article-center">
+						<header class="blog-article-header">
+							<h2>
+								<a href="blog-article.html">Anycast DNS Services Launch</a>
+							</h2>
+							<ul>
+								<li>
+									<i class="fas fa-calendar icon-left"></i>July 12, 2017
+								</li>
+								<li>
+									<i class="fas fa-comment icon-left"></i> Published by: username <mark>V.I.P</mark>
+								</li>
+							</ul>
+						</header>
+						<div class="blog-article-content">
+
+
+							<p>
+								The locations and resulting response times used for client requests to your website depend on the DNS product you have purchased.
+							</p>
+
+<!-- Code -->
+
+
+						</div>
+					</article>
+				</div>
+			</section>
+<!-- Comments -->
+
+<section id="comments" class="content-row">
+				<div class="container">
+					<div class="blog-comment-group blog-comment-group-center">
+						<h3>
+							24 Comments<a href="#comments-new">Leave a Comment<i class="fas fa-angle-right icon-right"></i></a>
+						</h3>
+
+
+						<div class="blog-comment-item">
+							<div class="blog-comment-content">
+								<p>
+									This is a comment...
+								</p>
+							</div>
+							<ul class="blog-comment-author">
+								<li>
+									<a href="#comment-1">username</a> <mark>V.I.P</mark>
+								</li>
+								<li>
+									<small>July 12, 2017 at 11:23 pm</small>
+								</li>
+							</ul>
+						</div>
+
+
+					</div>
+				</div>
+			</section>
+
+<!-- End of comments -->
+{{else}}
+<p>No knowledgebase bage, and this is a perfect design...</p>
+{{/if}}
+{{/if}}
+			<!-- Content Row -->
+			<section class="content-row content-row-color">
+				<div class="container">
+					<header class="content-header">
+						<h2>
+							Have you got any question?
+						</h2>
+						<p>
+							Don't hesitate to ask the community!<br><br>
+							<a class="button" href="/knowledgebase/newpost">
+								<i class="fas fa-file-alt icon-left"></i>Ask the community
+							</a>
+						</p>
+					</header>
+				</div>
+			</section>
+		</section>

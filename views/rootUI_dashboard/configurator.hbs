@@ -1,0 +1,38 @@
+<h4 id="serverData_ip"></h4>
+{{#if editconfig}}
+<div class="row">
+  <div class="col-xl-12">
+    <div class="card">
+      <div class="card-header">
+        <h5></h5>
+      </div>
+      <div class="card-body">
+
+      </div>
+    </div>
+  </div>
+</div>
+{{else}}
+<h2>You are not permited to edit the configuration!</h4>
+{{/if}}
+
+<div class="col-xl-12">
+  <div class="card table-card">
+
+  </div>
+</div>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script src="https://cdn.crunchify.com/wp-content/uploads/code/knob.js"></script>
+<script>
+  function knobfunction(value1){
+    $('.dial')
+      .val(value1)
+      .trigger('change');
+  }
+  document.getElementById("serverData_ip").innerHTML = '<img src="../../assets/images/{{server_datas.[0].server_type}}.jpg" width="32"></img> '+window.location.hostname+":{{server_datas.[0].port}}";
+  document.addEventListener('DOMContentLoaded', function(event) {
+    setTimeout(function(){
+      // console.clear();
+    }, 2000);
+  })
+</script>

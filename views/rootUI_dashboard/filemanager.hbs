@@ -1,0 +1,62 @@
+<h4 id="serverData_ip"></h4>
+{{#if filemanager}}
+<style>
+  #folder{
+    font-size: 150%;
+    align-items: center;
+    text-align: center;
+    display: inline-block;
+  }
+  #folder:hover{
+    background: #4680ff;
+    color: white;
+    cursor: pointer;
+  }
+</style>
+<div class="row">
+  <div class="col-xl-12">
+    <div class="card">
+      <div class="card-header">
+        <h5>File Manager</h5>
+      </div>
+      <div class="card-body" id="manager">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>File/folder's name</th>
+              <th>Operations</th>
+            </tr>
+            </thead>
+            <tbody id="list_of_folder">
+
+            </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{{else}}
+<h2>You are not permited to view the serverfiles!</h4>
+{{/if}}
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script src="https://cdn.crunchify.com/wp-content/uploads/code/knob.js"></script>
+<script>
+  document.getElementById("serverData_ip").innerHTML = '<img src="../../assets/images/{{server_datas.[0].server_type}}.jpg" width="32"></img> '+window.location.hostname+":{{server_datas.[0].port}}";
+</script>
+{{#if filemanager}}
+<script>
+  var folders = ["asd","servers","plugins","world"];
+  var files = ["server.properties", "eula.txt", "ops.json", "start.jar"];
+  for (var i = 0; i < folders.length; i++) {
+    document.getElementById("list_of_folder").innerHTML += '<tr><td><i class="fa fa-folder"></i> '+folders[i]+'</td><td>ASD</td></tr>';
+  }
+  for (var i = 0; i < files.length; i++) {
+    document.getElementById("list_of_folder").innerHTML += '<tr><td><i class="fa fa-file"></i> '+files[i]+'</td><td>ASD</td></tr>';
+  }
+  document.addEventListener('DOMContentLoaded', function(event) {
+    setTimeout(function(){
+      // console.clear();
+    }, 2000);
+  })
+</script>
+{{/if}}

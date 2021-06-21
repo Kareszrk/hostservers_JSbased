@@ -1,0 +1,180 @@
+<section id="content">
+			<!-- Content Row -->
+			<section class="content-row content-row-color content-row-clouds content-row-full-height">
+				<div class="content-slider animate-container-slide" data-nav="true" data-rotation="5">
+					<a class="slide" data-title="Cloud Hosting">
+						<div class="container text-align-center">
+							<header class="content-header content-header-large content-header-uppercase">
+								<h1>
+									<mark>REST API</mark> for automize
+								</h1>
+								<p>
+								  Would you like to start your own hosting with selling our high quality hosting products on your price?
+								</p>
+							</header>
+							<img width="640" src="uploads/server-shared-stack.png">
+						</div>
+					</a>
+				</div>
+				<div class="content-background content-background-light">
+					<img src="uploads/clouds-light.png" alt="">
+				</div>
+			</section>
+			<!-- Content Row --><section class="content-row content-row-gray">
+				<div class="container">
+					<header class="content-header">
+						<h2>
+							Validate your API
+						</h2>
+						<p>
+							For security reasons you need to verify yourself and your permissions with your API validator.
+						</p>
+					</header>
+					<div class="column-row">
+						<div class="column-25">
+							<div class="feature-box">
+								<div class="feature-header">
+									<i class="fas fa-shopping-cart icon-feature"></i>
+								</div>
+								<div class="feature-content">
+									<h3>
+										Get code
+									</h3>
+									<p>
+									   Easy API pre-built projects to let you totally understand our mechanics of work.
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="column-25">
+							<div class="feature-box">
+								<div class="feature-header">
+									<i class="fas fa-file-alt icon-feature"></i>
+								</div>
+								<div class="feature-content">
+									<h3>
+										Activate
+									</h3>
+									<p>
+										Follow the given validation instructions to activate your new API.
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="column-25">
+							<div class="feature-box">
+								<div class="feature-header">
+									<i class="fas fa-cog icon-feature"></i>
+								</div>
+								<div class="feature-content">
+									<h3>
+									  Change the code
+									</h3>
+									<p>
+									  Change the given API pre-built code for your own purposes.
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="column-25">
+							<div class="feature-box">
+								<div class="feature-header">
+									<i class="fas fa-sliders-h icon-feature"></i>
+								</div>
+								<div class="feature-content">
+									<h3>
+										Enjoy the magic
+									</h3>
+									<p>
+										Now you finished, it's awesome! Now you can do better things than this.
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+      <section class="content-row content-row-gray">
+        <div class="container">
+          <header class="content-header">
+            <h2>
+              Example Code
+            </h2>
+            <p>
+              This is just an example, it's a restricted code. May not work in your project.
+            </p>
+          </header>
+          <div class="column-row align-center-bottom">
+            <div class="grid-item">
+            <pre class="pre-code">
+      const ipAPI = '//api.hostservers.pro?format=json'
+
+      HostServers.queue([{
+      p_Title: 'Get your IP',
+      pb_Ttxt: 'Submit',
+      API_restricter: "your API validator key",
+      text:
+      'Your public IP will be received ' +
+      'via AJAX request',
+      preConfirm: () => {
+      return fetch(ipAPI)
+      .then(response => response.json())
+      .then(data => HostServers.insertQueueStep(data.ip))
+      .catch(() => {
+        HostServers.insertQueueStep({
+          icon: 'error',
+          p_Title: 'Unable to get your public IP'
+        })
+      })
+      }
+      }]);
+            </pre>
+            </div>
+          </div>
+        </div>
+      </section>
+			<!-- Content Row -->
+			<section class="content-row content-row-gray">
+				<div class="container">
+					<header class="content-header">
+						<h2>
+							What developers are saying?
+						</h2>
+						<p>
+							We've helped hundreds of developers to build up their own hosting services with our API.
+						</p>
+					</header>
+					<div class="column-row align-center-bottom">
+						<div class="column-33">
+							<div class="testimonial">
+								<p class="testimonial-content">
+									My customers didn't experience a single minute of downtime since I moved my services over to HostServers.
+								</p>
+								<p class="testimonial-author">
+									<small>Ultimaters Hosting</small>
+								</p>
+							</div>
+						</div>
+						<div class="column-33">
+							<div class="testimonial">
+								<p class="testimonial-content">
+									HostServers helped me with a professional custom server solution when my business was so rapidly growing my old system couldn't handle the load anymore.
+								</p>
+								<p class="testimonial-author">
+									<small>AnonimCoin</small>
+								</p>
+							</div>
+						</div>
+						<div class="column-33">
+							<div class="testimonial">
+								<p class="testimonial-content">
+									By switching to HostServers's API system we were able to decrease the worldwide app latency immensely.
+								</p>
+								<p class="testimonial-author">
+									<small>KrunHost</small>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>

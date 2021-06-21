@@ -1,0 +1,328 @@
+<h4 id="serverData_ip"></h4>
+<div class="row">
+  <div class="col-xl-12">
+    <div class="card">
+      <div class="card-header">
+        <h5><i class="fa fa-tasks"></i> Control the server</h5>
+      </div>
+      <div class="card-body">
+        {{#if start}}
+          <button type="button" class="btn waves-effect waves-light btn-outline-success">Start Server</button>
+        {{else}}
+          <h5>Your are not permitted to start the server!</h5>
+        {{/if}}
+        {{#if stop}}
+          <button type="button" class="btn waves-effect waves-light btn-outline-danger">Stop Server</button>
+        {{else}}
+          <h5>Your are not permitted to stop the server!</h5>
+        {{/if}}
+        {{#if restart}}
+          <button type="button" class="btn waves-effect waves-light btn-outline-info">Restart Server</button>
+        {{else}}
+          <h5>Your are not permitted to start the server!</h5>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xl-4 col-md-6">
+    <div class="card">
+      <div class="card-header">
+        <h5><i class="fa fa-microchip"></i> CPU Usage (%)</h5>
+      </div>
+        <div class="card-body  text-center dial-chart">
+        <div style="display:inline;width:200px;height:200px;">
+          <input readonly data-angleoffset="180" data-thickness=".1" data-skin="tron" data-fgcolor="#4680ff" data-height="200" data-width="200" value="0" class="dial" type="text"></div>
+        </div>
+    </div>
+  </div>
+  <div class="col-xl-4 col-md-6">
+    <div class="card">
+      <div class="card-header">
+        <h5><i class="fa fa-memory"></i> RAM Usage (%)</h5>
+      </div>
+        <div class="card-body  text-center dial-chart">
+        <div style="display:inline;width:200px;height:200px;">
+          <input readonly data-angleoffset="180" data-thickness=".1" data-skin="tron" data-fgcolor="#4680ff" data-height="200" data-width="200" value="0" class="dial" type="text"></div>
+        </div>
+    </div>
+  </div>
+  <div class="col-xl-4 col-md-6">
+    <div class="card">
+      <div class="card-header">
+        <h5><i class="fa fa-hdd"></i> Storage Usage (%)</h5>
+      </div>
+        <div class="card-body  text-center dial-chart">
+        <div style="display:inline;width:200px;height:200px;">
+          <input readonly data-angleoffset="180" data-thickness=".1" data-skin="tron" data-fgcolor="#4680ff" data-height="200" data-width="200" value="0" class="dial" type="text"></div>
+        </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xl-6">
+    <div class="card">
+      <div class="card-header">
+        <h5><i class="fa fa-info"></i> Server infromations</h5>
+      </div>
+      <div class="card-body">
+
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-6">
+    <div class="card">
+      <div class="card-header">
+        <h5><i class="fa fa-terminal"></i> Console</h5>
+      </div>
+      <div class="card-body">
+        {{#if consolecommand}}
+
+        {{else}}
+        <h3>You are not permitted to use the console!</h3>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</div>
+{{#if owner}}
+<div class="row">
+  <div class="col-xl-6">
+    <div class="card">
+      <div class="card-header">
+        <h5><i class="fa fa-plus"></i> Grant permission for a user to control your server.</h5>
+      </div>
+      <div class="card-body">
+        <form onsubmit="grantPerm(); return false;">
+          <input class="mb-3 form-control" type="text" placeholder="Nickname" style="width: 100%;" id="nickName">
+          <button type="submit" class="btn waves-effect waves-light btn-outline-primary">Grant Permission</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-6">
+    <div class="card">
+      <div class="card-header">
+        <h5><i class="fa fa-list"></i> Granted users.</h5>
+      </div>
+      <div class="card-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Username</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="permissionTable">
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{{/if}}
+<div class="col-xl-12">
+  <div class="card table-card">
+    <!-- <div class="card-header">
+      <h5>
+
+      </h5>
+      <div class="card">
+        <div class="card-body">
+          {{#each server_datas}}
+          <h4>Server Name: {{this.server_name}}</h4>
+          <h4>Server Type: {{this.server_type}}</h4>
+          {{/each}}
+        </div>
+      </div>
+    </div> -->
+    {{#if owner}}
+        <div id="permeditor" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Permission editor</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              </div>
+              <div class="modal-body" id="perm_body">
+                <div class="custom-control custom-switch">
+                  <input type="checkbox" class="custom-control-input" id="start">
+                  <label class="custom-control-label" for="start">Start Server</label>
+                </div>
+                <div class="custom-control custom-switch">
+                  <input type="checkbox" class="custom-control-input" id="stop">
+                  <label class="custom-control-label" for="stop">Stop Server</label>
+                </div>
+                <div class="custom-control custom-switch">
+                  <input type="checkbox" class="custom-control-input" id="restart">
+                  <label class="custom-control-label" for="restart">Restart Server</label>
+                </div>
+                <div class="custom-control custom-switch">
+                  <input type="checkbox" class="custom-control-input" id="editconfig">
+                  <label class="custom-control-label" for="editconfig">Edit Configuration</label>
+                </div>
+                <div class="custom-control custom-switch">
+                  <input type="checkbox" class="custom-control-input" id="filemanager">
+                  <label class="custom-control-label" for="filemanager">Browse serverfiles</label>
+                </div>
+                <div class="custom-control custom-switch">
+                  <input type="checkbox" class="custom-control-input" id="consolecommand">
+                  <label class="custom-control-label" for="consolecommand">Send Console Command</label>
+                </div>
+                <div class="custom-control custom-switch">
+                  <input type="checkbox" class="custom-control-input" id="reinstall">
+                  <label class="custom-control-label" for="reinstall">Reinstall Server</label>
+                </div>
+                <div class="custom-control custom-switch">
+                  <input type="checkbox" class="custom-control-input" id="database">
+                  <label class="custom-control-label" for="database">Use Database</label>
+                </div>
+              </div>
+              <div class="modal-footer" id="permeditor_footer">
+
+              </div>
+            </div>
+          </div>
+        </div>
+    {{/if}}
+  </div>
+</div>
+{{#if owner}}
+  <script>
+    var perms = document.getElementById("perms");
+    var perm_body = document.getElementById("perm_body");
+    var permissionTable = document.getElementById("permissionTable");
+    var permeditor_footer = document.getElementById("permeditor_footer");
+
+    var permarr;
+    function listPerms(){
+      $(".dial").knob();
+      $.ajax({
+        type:"post",
+        url:"/sdashboard",
+        data:"type=getPermissions&port="+{{server_datas.[0].port}},
+        cache:false,
+        success: function(rest){
+          for (var i = 0; i < rest.length; i++) {
+            permissionTable.innerHTML += "<tr><td>"+rest[i][0]["nick"]+"</td><td><button onclick='removePerm(`"+rest[i][0]["nick"]+"`);' class='btn waves-effect waves-light btn-danger'>Remove Permission</button><button type='button' class='btn waves-effect waves-light btn-primary' data-toggle='modal' data-target='#permeditor' onclick='getPermissionDetails(`"+rest[i][0]["id"]+"`); return false;'>Edit permissions</button></td></tr>";
+          }
+        }
+      });
+    }
+    function grantPerm(){
+      var usr = document.getElementById("nickName").value;
+      $.ajax({
+        type:"post",
+        url:"/sdashboard",
+        data:"type=grantPerm&usr="+usr+"&port="+{{server_datas.[0].port}},
+        cache:false,
+        success: function(rest){
+          permissionTable.innerHTML = "";
+          listPerms();
+          document.getElementById("nickName").value = "";
+          if (rest == "success") {
+            Swal.fire(
+              "User added!",
+              "The user has become a contributor to your server.",
+              'success',
+            );
+          }
+          else if (rest == "cantaddyourself") {
+            Swal.fire(
+              "Could not add!",
+              "You can not give privilages over yourself.",
+              'warning',
+            );
+          }else if (rest == "already") {
+            Swal.fire(
+              "Already added!",
+              "The is already a contributor to your server.",
+              'warning',
+            );
+          }
+        }
+      });
+    }
+    document.addEventListener('DOMContentLoaded', function(event) {
+      setTimeout(function(){
+        listPerms();
+      }, 100);
+    })
+    function removePerm(usr){
+      $.ajax({
+        type:"post",
+        url:"/sdashboard",
+        data:"type=removePerm&usr="+usr+"&port="+{{server_datas.[0].port}},
+        cache:false,
+        success: function(rest){
+          permissionTable.innerHTML = "";
+          listPerms();
+          Swal.fire(
+            "User removed!",
+            "User privilages has been removed.",
+            'success',
+          );
+        }
+      });
+    }
+    function getPermissionDetails(usr){
+      $.ajax({
+        type:"post",
+        url:"/sdashboard",
+        data:"type=getPermissionDetails&usr="+usr+"&port="+{{server_datas.[0].port}},
+        cache:false,
+        success: function(rest){
+          permarr = rest[usr];
+          permeditor_footer.innerHTML = '<button type="button" class="btn waves-effect waves-light btn-secondary" data-dismiss="modal">Close</button><button type="button" data-dismiss="modal" class="btn waves-effect waves-light btn-primary" onclick="savePerm(`'+usr+'`);">Save changes</button>'
+          for (elem in permarr) {
+            if (permarr[elem] == "Y") {
+              document.getElementById(elem).checked = true;
+            }else{
+              document.getElementById(elem).checked = false;
+            }
+          }
+        }
+      });
+    }
+    function savePerm(usr){
+      var save_arr = {};
+      for (elem in permarr) {
+        if (document.getElementById(elem).checked) {
+          save_arr[elem] = "Y";
+        }else{
+          save_arr[elem] = "N";
+        }
+      }
+      $.ajax({
+        type:"post",
+        url:"/sdashboard",
+        data:"type=savePerm&usr="+usr+"&port="+{{server_datas.[0].port}}+"&perms="+JSON.stringify(save_arr),
+        cache:false,
+        success: function(rest){
+          Swal.fire(
+            "Permissions reloaded!",
+            "Permissions has been saved.",
+            'success',
+          );
+        }
+      });
+    }
+  </script>
+{{/if}}
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script src="https://cdn.crunchify.com/wp-content/uploads/code/knob.js"></script>
+<script>
+  function knobfunction(value1){
+    $('.dial')
+      .val(value1)
+      .trigger('change');
+  }
+  document.getElementById("serverData_ip").innerHTML = '<img src="../../assets/images/{{server_datas.[0].server_type}}.jpg" width="32"></img> '+window.location.hostname+":{{server_datas.[0].port}}";
+  document.addEventListener('DOMContentLoaded', function(event) {
+    setTimeout(function(){
+      // console.clear();
+    }, 2000);
+  })
+</script>

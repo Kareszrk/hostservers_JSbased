@@ -1,0 +1,195 @@
+<section id="content">
+  <section class="content-row content-row-gray">
+    <div class="container">
+      <h1>Servers by category</h1>
+      <div class="column-row">
+        <div class="column-50">
+          <div class="collapsible" onclick="getServers('minecraftBedrock'); return false;"><img src="https://lh3.googleusercontent.com/yAtZnNL-9Eb5VYSsCaOC7KAsOVIJcY8mpKa0MoF-0HCL6b0OrFcBizURHywpuip-D6Y" style="width: 100%;"></div>
+  				<div class="content">
+            <div class="server">
+              <p style="text-align: center;" id="minecraft_bedrock_servers"></p>
+              <style type="text/css">
+                table{
+                  background: #151c27;
+                  border: none !important;
+                }
+                table * {
+                  border: none!important;
+                }
+                th{
+                  background: #151c27;
+                }
+                thead *{
+                  background: #151c27!important;
+                  color: white;
+                  border: none!important;
+                }
+              </style>
+              <table style="display: none;" id="minecraft_bedrock_servers_table">
+      						<thead>
+      							<tr>
+      								<th>Server Name</th>
+      							  <th>Server IP</th>
+      								<th>Actions</th>
+      							</tr>
+      						</thead>
+      						<tbody id="minecraft_bedrock_servers_table_rows">
+
+      						</tbody>
+      					</table>
+            </div>
+  				</div>
+        </div>
+        <div class="column-50">
+          <div class="collapsible" onclick="getServers('minecraft'); return false;"><img src="https://lh3.googleusercontent.com/yAtZnNL-9Eb5VYSsCaOC7KAsOVIJcY8mpKa0MoF-0HCL6b0OrFcBizURHywpuip-D6Y" style="width: 100%;"></div>
+  				<div class="content">
+            <div class="server">
+              <p style="text-align: center;" id="minecraft_servers"></p>
+              <table style="display: none;" id="minecraft_servers_table">
+      						<thead>
+      							<tr>
+                      <th>Server Name</th>
+      								<th>Server IP</th>
+      							  <th>Actions</th>
+      							</tr>
+      						</thead>
+      						<tbody id="minecraft_servers_table_rows">
+
+      						</tbody>
+      					</table>
+            </div>
+  				</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</section>
+<link rel="stylesheet" href="./assets/css/rootui.css">
+<script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("aktiv");
+    var content = this.nextElementSibling;
+    setTimeout(function(){
+      if (content.style.maxHeight){
+        content.style.maxHeight = null;
+      } else {
+        content.style.maxHeight = content.scrollHeight + "px";
+      }
+    },300)
+  });
+}
+
+function getServers(type){
+  var server_type;
+  if(type == "minecraftBedrock"){
+    server_type = "minecraft_bedrock_servers";
+  }else if (type == "minecraft") {
+    server_type = "minecraft_servers";
+  } else {
+    return false;
+  }
+  document.getElementById(server_type).style.display = "block";
+  document.getElementById(server_type).innerHTML = "<center>Looking for servers...</center>";
+  $.ajax({
+    type:"post",
+    url:"/pr",
+    cache:false,
+    data:"type=getStateE&server_type="+type,
+    error: function(){
+      document.getElementById(server_type).innerHTML = "<center>Can't list the servers, please try again later!</center>";
+      document.getElementById(server_type+"_table").style.display = "none";
+      document.getElementById(server_type+"_table_rows").innerHTML = '';
+    },
+    success: function(response){
+      if(response == "noservers"){
+        document.getElementById(server_type).innerHTML = "<center>You have no servers in this category.</center>";
+        document.getElementById(server_type+"_table_rows").innerHTML = '';
+        document.getElementById(server_type+"_table_rows").style.display = "none";
+      } else {
+        document.getElementById(server_type).style.display = "none";
+        document.getElementById(server_type+"_table").style.display = "block";
+        document.getElementById(server_type+"_table_rows").innerHTML = '';
+        console.log(response);
+        for(let k = 0; k < response.length; k++){
+          if (response[k]['shared_with']) {
+            document.getElementById(server_type+"_table_rows").innerHTML += '<tr>'+
+              '<td class="has-responsive-th"><span class="responsive-th">Server Name:</span>'+response[k]['server_name']+' <strong style="color: red;">(Shared)</strong></td>'+
+              '<td class="has-responsive-th"><span class="responsive-th">Server IP:</span>'+window.location.hostname+':'+response[k]['port']+'</td>'+
+              '<td class="has-responsive-th"><span class="responsive-th">Actions: </span><a href="/dashboard/'+response[k]['port']+'"><button type="button" class="btn btn-outline-primary">Control</button></a></td>'+
+            '</tr>';
+          }else{
+            document.getElementById(server_type+"_table_rows").innerHTML += '<tr>'+
+            '<td class="has-responsive-th"><span class="responsive-th">Server Name:</span>'+response[k]['server_name']+'</td>'+
+            '<td class="has-responsive-th"><span class="responsive-th">Server IP:</span>'+window.location.hostname+':'+response[k]['port']+'</td>'+
+            '<td class="has-responsive-th"><span class="responsive-th">Actions: </span><a href="/dashboard/'+response[k]['port']+'"><button type="button" class="btn btn-outline-primary">Control</button></a></td>'+
+            '</tr>';
+          }
+        }
+      }
+    },
+    timeout: 3000,
+  });
+}
+</script>
+<style>
+  tbody, thead, tr, th{
+    width: 100%;
+    margin-top: 0!important;
+  }
+  .server{
+    padding: 5px;
+    font-size: 110%;
+    color: white;
+    transition: background-color 0.5s;
+  }
+  .server:hover{
+    background-color: #844fe1;
+  }
+  .collapsible {
+    color: white;
+    cursor: pointer;
+    padding: 18px;
+    width: auto;
+    border: none;
+    outline: none !important;
+    font-size: 15px;
+  	transition: background-color 1s;
+  	margin-left: 2%;
+  	margin-top: 1%;
+    text-align: left;
+  }
+
+  .aktiv, .collapsible:hover {
+    background-color: #151c27;
+  }
+
+  .aktiv, .collapsible:hover:nth-child(even) {
+    background-color: #151c27;
+  }
+
+  .content {
+    padding: 0 1%;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    background-color: #151c27;
+  	width: auto;
+  	margin-left: 2%;
+  }
+  .content *{
+  	margin-top: 1%;
+  	margin-bottom: 1%;
+  	font-weight: bold;
+  }
+  #kategoria{
+  	width: 100%;
+  	padding: 1%;
+  }
+  .content button{
+  	margin-left: 1%;
+  }
+</style>

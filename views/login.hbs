@@ -1,0 +1,257 @@
+<!-- Content -->
+<section id="content">
+<!-- Content Row -->
+<section id="content">
+			<!-- Content Row -->
+			<section class="content-row content-row-color content-row-clouds">
+				<div class="container">
+					<header class="content-header content-header-small content-header-uppercase">
+						<h1>
+							Client Login
+						</h1>
+						<p>
+							Our customer portal uses 128-bit encryption. Your details are safe.
+						</p>
+					</header>
+				</div>
+			</section>
+			<!-- Content Row -->
+			<section class="content-row">
+				<div class="container">
+					<div class="tab-group tab-group-switch-style">
+						<div class="tab-item" data-title="Login"><div class="tab-item-title active">Login</div><div class="tab-item-inner">
+							<div class="column-row align-center-bottom">
+								<div class="column-66">
+									<form class="form-full-width" onsubmit="login(); return false;">
+										<div class="form-row">
+											<label for="form-email">Email Address</label>
+											<input id="email_login" minlength="3" type="email" placeholder="Email Address" required>
+										</div>
+										<div class="form-row">
+											<label for="form-password">Password</label>
+											<input id="password_login" minlength="5" type="password" placeholder="Password" required>
+										</div>
+										<div class="form-row">
+											<button type="submit" class="button-secondary"><i class="fas fa-lock icon-left"></i>Login</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div></div>
+						<div class="tab-item" data-title="Register"><div class="tab-item-title active">Register</div><div class="tab-item-inner">
+							<div class="column-row align-center-bottom">
+								<div class="column-66">
+									<form class="form-full-width" onsubmit="register(); return false;">
+										<div class="form-row">
+											<label for="form-email">Email Address</label>
+											<input type="email" minlength="3" id="email_register" placeholder="Email Address" required>
+										</div>
+										<div class="form-row">
+											<label for="form-password">Password</label>
+											<input type="password" minlength="6" id="password_register" placeholder="Password" required>
+										</div>
+										<div class="form-row">
+											<label for="form-password">Repeat Password</label>
+											<input type="password" minlength="6" id="password_repeat_register" placeholder="Repeat Password" required>
+										</div>
+										<div class="form-row">
+											<label for="form-password">Nickname</label>
+											<input type="text" minlength="5" id="nickname" placeholder="Nickname" required>
+										</div>
+										<p>By registering you automatically agree with our <a href="/terms">Terms and Conditions</a>.</p>
+										<p>After the success registration we ask for your phone number that we use to validate your account.</p>
+										<div class="form-row">
+											<button class="button-secondary"><i class="fas fa-lock icon-left"></i>Register</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div></div>
+					</div>
+				</div>
+			</section>
+			<section class="content-row">
+				<div class="container">
+					<div class="column-row align-center">
+						<div class="column-50">
+
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- Content Row -->
+			<section class="content-row content-row-gray">
+				<div class="container">
+					<div class="column-row align-center">
+						<div class="column-50 text-align-center">
+							<p class="text-color-gray">
+								Having troubles logging into your account?<br>
+								<a data-modal-target="forgot-password" style="cursor: pointer;">Password Reset<i class="fas fa-angle-right icon-right"></i></a>
+
+<!-- Panels -->
+
+<div class="modal" data-modal="forgot-password" data-modal-dismissible="true">
+
+
+							<div class="modal-header">
+									<h3>
+										Forgotten password recovery
+									</h3>
+								<i class="material-icons modal-dismiss">close</i></div><div class="modal-content">
+									<form class="form-full-width">
+										<div class="form-row">
+											<label for="form-email">Email Address</label>
+											<input id="recover_email" type="email">
+										</div>
+										<div class="form-row group">
+											<button class="button-primary group-stretch">
+												Confirm
+											</button>
+											<button class="group-stretch" data-modal-dismiss="forgot-password">
+												Cancel
+											</button>
+										</div>
+									</form>
+								</div></div>
+
+<!-- End of panels -->
+
+							</p>
+						</div>
+					</div>
+				</div>
+			</section>
+		</section>
+</section>
+<script type="text/javascript">
+	function login(){
+		var email_login_a = document.getElementById("email_login");
+		var password_login_a = document.getElementById("password_login");
+	  if (!email_login_a.checkValidity()) {
+	   	Swal.fire(
+				'Take attention! (Email)',
+				email_login_a.validationMessage,
+				'warning',
+			);
+	  } else if(!password_login_a.checkValidity()){
+			Swal.fire(
+				'Take attention! (Password)',
+				password_login_a.validationMessage,
+				'warning',
+			);
+		} else {
+			var email_login = document.getElementById("email_login").value;
+			var password_login = document.getElementById("password_login").value;
+			$.ajax({
+	      type:"post",
+	      url:"/pr",
+	      data:"type=log&email="+email_login+"&password="+password_login,
+	      cache:false,
+	      success: function(rest){
+					if(rest == "success"){
+						location.reload();
+					} else if(rest == "invaliddatas"){
+						Swal.fire(
+							'Can not login',
+							"Invalid email or password.",
+							'warning',
+						);
+					} else if(rest == "blocked"){
+						Swal.fire(
+							'Account blocked',
+							"Your account has got a permanent ban from the website.<br>If you want to appeal contact us: blockedaccounts@hostservers.pro",
+							'error',
+						);
+					}
+	      }
+	    });
+	  }
+	}
+	function register(){
+		var email_register_a = document.getElementById("email_register");
+		var password_register_a = document.getElementById("password_register");
+		var password_repeat_register_a = document.getElementById("password_repeat_register");
+		var nickname_a = document.getElementById("nickname");
+	  if (!email_register_a.checkValidity()) {
+			Swal.fire(
+				'Take attention! (Email)',
+				email_register_a.validationMessage,
+				'warning',
+			);
+	  } else if(!password_register_a.checkValidity()){
+			Swal.fire(
+				'Take attention! (Password)',
+				password_register_a.validationMessage,
+				'warning',
+			);
+		} else if(!password_repeat_register_a.checkValidity()){
+			Swal.fire(
+				'Take attention! (Re-Password)',
+				password_repeat_register_a.validationMessage,
+				'warning',
+			);
+		} else if(!nickname_a.checkValidity()){
+			Swal.fire(
+				'Take attention! (Nickname)',
+				nickname_a.validationMessage,
+				'warning',
+			);
+		} else {
+			var email_register = $("#email_register").val();
+			var password_register = $("#password_register").val();
+			var password_repeat_register = $("#password_repeat_register").val();
+			var nickname = $("#nickname").val();
+			$.ajax({
+				type:"post",
+				url:"/pr",
+				data:"type=reg&email="+email_register+"&pass="+password_register+"&repass="+password_repeat_register+"&nickname="+nickname,
+				cache: false,
+				success: function(response){
+					if(response == "success"){
+						Swal.fire(
+							'Success registration!',
+							"You've been successfully registered to HostServers!",
+							'success',
+						);
+					} else if(response == "nomatch"){
+						Swal.fire(
+							"Passwords doesn't match",
+							'Password you have been typed does not match with each other.',
+							'warning',
+						);
+					} else if(response == "usedemail"){
+						Swal.fire(
+							'Already used email!',
+							'The provided email address has been registered already to the website.',
+							'warning',
+						);
+					} else if(response == "usednickname"){
+						Swal.fire(
+							'Already used nickname!',
+							'The provided nickname has been registered already to the website',
+							'warning',
+						);
+					} else if(response == "doesntmatchrequirementsofpassword"){
+						Swal.fire(
+							'Easy password',
+							"The provided password doesn't meet the security measures.",
+							'warning',
+						);
+					} else if(response == "emptyfield"){
+						Swal.fire(
+							'Empty field(s)!',
+							'Please fill all the fields!',
+							'warning',
+						);
+					} else if(response == "invalidemail"){
+						Swal.fire(
+							'Invalid email address!',
+							'The provided email address is invalid. Please give us a valid email address to continue the registration!',
+							'warning',
+						);
+					}
+					}
+			});
+	  }
+	}
+</script>

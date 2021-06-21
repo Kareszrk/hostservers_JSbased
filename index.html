@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="hu" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <input type="button" id="btn" name="send" value="Send" onclick="submitMessage();">
+    <input type="text" id="msg" name="message">
+    <script src="/socket.io/socket.io.js" charset="utf-8"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+      var socket = io.connect();
+
+      function submitMessage(){
+        var message = $('#msg').val();
+        console.log(message);
+        socket.emit('sendmsg', message);
+      }
+    </script>
+  </body>
+</html>

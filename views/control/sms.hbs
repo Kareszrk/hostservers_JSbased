@@ -1,0 +1,215 @@
+<section id="content">
+
+	<section class="content-row content-row-gray">
+					<div class="container">
+						<div class="column-row">
+							<div class="column-50">
+								<h3>
+									<i class="fas fa-comment-dots icon-feature-inline"></i>Phone verification
+								</h3>
+								<p>
+									Type your phone number to the field and we will send you an SMS with your verification code. After receiving the SMS you have to type it into the website to validate that you are not a robot.
+								</p>
+								<p>
+									<small class="text-color-gray">Account verification via SMS will not cost money, the SMS will be sent from HostServers' own SMS server which means that the SMS we send is secure.</small>
+								</p>
+							</div>
+							<div class="column-50">
+								<div class="column-50">
+
+									<form onsubmit="sendSMS_(); return false;">
+									<div id="phoneNumber" style="display: block; text-align: center;" class="form-row">
+										<label for="form-name"><h3>Phone number</h3><p>Area code and your identifier without + symbol!<br>For example: +1-541-754-3010</p></label><br>
+		                <input id="yourphonenumber" type="number" placeholder="15417543010" style="width: 60%;">  <button type="submit" class="button-secondary">Send</button>
+									</div>
+									</form>
+
+									<form onsubmit="verifyPhone(); return false;">
+		              <div id="verifyPhone" style="display: none; text-align: center;" class="form-row">
+		                <label for="form-name"><h3>Verify account</h3><p>We've sent you a message with your activation code.<br>Enter the given verification code!<br></p></label><br>
+		                <input id="youraccountverificationcode" type="text" name="name" placeholder="Your verification code" style="width: 60%;">  <button class="button-secondary">Validate</button><br>
+										<a id="retypeAllowerButton" style="margin-top: -5px; cursor: pointer;">Change phone number (10)</a>
+									</div>
+									</form>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+<style type="text/css">
+.showPanel {
+	opacity: 1.0;
+	animation-duration: 0.5s;
+	animation-name: showpanel_anim;
+}
+@keyframes showpanel_anim {
+	0% {
+		opacity: 0.0;
+	}
+	100% {
+		opacity: 1.0;
+	}
+}
+
+.hidePanel {
+	opacity: 0.0;
+	animation-duration: 0.5s;
+	animation-name: hidepanel_anim;
+}
+@keyframes hidepanel_anim {
+	from {
+		opacity: 1.0;
+	}
+	to {
+		opacity: 0.0;
+	}
+}
+</style>
+<script type="text/javascript">
+function verifyPhone(){
+	var youraccountverificationcode_ = document.getElementById("youraccountverificationcode").value;
+	$.ajax({
+		type:"post",
+		url:"/pr",
+		cache:false,
+		data:"type=verifyPhone&acCode="+youraccountverificationcode_,
+		error: function(){
+			Swal.fire(
+			  'Could not verify you',
+			  'We are sorry but we could not detect if it is you.',
+			  'error'
+			)
+    },
+    success: function(state){
+		if(state == "success"){
+			// Not used. "success"
+			Swal.fire(
+			 	'Phone verified!',
+			  'Thank you for verying that you are not a robot.',
+			  'success'
+			)
+		} else if(state == "emptyfield"){
+			Swal.fire(
+			  'Empty field!',
+			  'You must fill the verification field!',
+			  'warning'
+			)
+		} else if(state == "invalidcode"){
+			Swal.fire(
+			  'Verification code rejected',
+			  'The verification code you have entered is not valid.',
+			  'warning'
+			)
+		} else {
+			location.reload();
+		}
+    },
+    timeout: 4000
+	});
+}
+
+function sendSMS_(){
+	var phoneNumber__ = document.getElementById("yourphonenumber").value;
+	$.ajax({
+		type:"post",
+		url:"/pr",
+		cache:false,
+		data:"type=validatePhone&pNumber="+phoneNumber__,
+		error: function(){
+			Swal.fire(
+			  'Could not send SMS',
+			  'We are sorry but we could not send the SMS, please try again within a few minutes!',
+			  'error'
+			)
+    },
+    success: function(state){
+		if(state == "sent"){
+			sendSMS();
+		} else if(state == "emptyfield"){
+			Swal.fire(
+			  'Empty field!',
+			  'You must fill the phone number field!',
+			  'warning'
+			)
+		} else if(state == "alreadyinuse"){
+			Swal.fire(
+			  'Rejected number!',
+			  'This phone number is already registered.',
+			  'warning'
+			)
+		} else if(state == "on_blacklist"){
+			Swal.fire(
+			  'Rejected number!',
+			  'This phone number is on blacklist.<br>You are not authorized to use this phone number!',
+			  'error'
+			)
+		} else {
+			location.reload();
+		}
+    },
+    timeout: 8000
+	});
+}
+
+function reTypePhone(){
+	$("#verifyPhone").addClass("hidePanel");
+	setTimeout(function(){
+		$("#verifyPhone").hide();
+		$("#verifyPhone").removeClass("hidePanel");
+			$("#phoneNumber").show();
+			$("#phoneNumber").addClass("showPanel");
+			setTimeout(function(){
+				$("#phoneNumber").removeClass("showPanel");
+			}, 650);
+	}, 650);
+}
+
+function sendSMS(){
+	$("#retypeAllowerButton").removeAttr('onclick', 'reTypePhone()');
+	$("#phoneNumber").addClass("hidePanel");
+	setTimeout(function(){
+		$("#phoneNumber").hide();
+		$("#phoneNumber").removeClass("hidePanel");
+			$("#verifyPhone").show();
+			$("#verifyPhone").addClass("showPanel");
+			setTimeout(function(){
+				$("#verifyPhone").removeClass("showPanel");
+			}, 650);
+	}, 650);
+	setTimeout(function(){
+		$("#retypeAllowerButton").html("Change phone number (10)");
+		setTimeout(function(){
+			$("#retypeAllowerButton").html("Change phone number (9)");
+			setTimeout(function(){
+				$("#retypeAllowerButton").html("Change phone number (8)");
+				setTimeout(function(){
+					$("#retypeAllowerButton").html("Change phone number (7)");
+					setTimeout(function(){
+						$("#retypeAllowerButton").html("Change phone number (6)");
+						setTimeout(function(){
+							$("#retypeAllowerButton").html("Change phone number (5)");
+							setTimeout(function(){
+								$("#retypeAllowerButton").html("Change phone number (4)");
+								setTimeout(function(){
+									$("#retypeAllowerButton").html("Change phone number (3)");
+									setTimeout(function(){
+										$("#retypeAllowerButton").html("Change phone number (2)");
+										setTimeout(function(){
+											$("#retypeAllowerButton").html("Change phone number (1)");
+												setTimeout(function(){
+													$("#retypeAllowerButton").html("Change phone number");
+													$("#retypeAllowerButton").attr('onclick', 'reTypePhone()');
+												}, 1000);
+										}, 1000);
+									}, 1000);
+								}, 1000);
+							}, 1000);
+						}, 1000);
+					}, 1000);
+				}, 1000);
+			}, 1000);
+		}, 1000);
+	}, 1000);
+}
+</script>

@@ -1,0 +1,331 @@
+<!-- Content -->
+<section id="content">
+<!-- Content Row -->
+<section class="content-row content-row-color content-row-clouds content-row-full-height">
+				<div class="container">
+					<header class="content-header content-header-large content-header-uppercase">
+						<h1>
+							BECOME A HELPER
+						</h1>
+						<p>
+							The best help is that you get something in return!
+						</p>
+					</header>
+				</div>
+				<div class="content-background content-background-light">
+					<img src="img/marketplace/1.png">
+				</div>
+			</section>
+			<!-- Content Row -->
+      <section class="content-row">
+      				<div class="container">
+      					<h4>
+      						How does it look like?
+      					</h4>
+      					<div class="gallery gallery-3-columns">
+      						<ul>
+      							<li>
+      								<a href="../../img/marketplace/2.png"><img src="../../img/marketplace/2.png" alt=""></a>
+      							</li>
+      							<li>
+      								<a href="../../img/marketplace/3.png"><img src="../../img/marketplace/3.png" alt=""></a>
+      							</li>
+      							<li>
+      								<a href="../../img/marketplace/4.png"><img src="../../img/marketplace/4.png" alt=""></a>
+      							</li>
+      						</ul>
+      					</div>
+      				</div>
+      			</section>
+          <section class="content-row content-row-border-top">
+          				<div class="container">
+          					<div class="column-row">
+          						<div class="column-25">
+          							<h4>
+          							  <b>Photo of our shop</b>
+          							</h4>
+          							<p>
+          								<img src="../../img/marketplace/5.png" alt="">
+          							</p>
+          						</div>
+          						<div class="column-25">
+          							<h4>
+          								<b>Notes</b>
+          							</h4>
+          							<p>
+                          <div class="column-50">
+            								<p>
+            									The order will be shipped directly from our UK store to the address you specify. The average delivery time is 10 days.
+            								</p>
+            						</div>
+                        <div class="column-50">
+                          <p>
+                            After ordering this product, we will automatically upgrade your account to VIP status!
+                          </p>
+                      </div>
+          							</p>
+          						</div>
+          						<div class="column-25">
+          							<h4>
+          							  <b>On knowledge base and comments</b>
+          							</h4>
+          							<p>
+          							  {{#if loggedIn}}{{nickName}} {{else}}YourName {{/if}}<mark>V.I.P</mark>
+          							</p>
+                        <h4>
+                          <b>Loyality Credits</b>
+                        </h4>
+                        <p>
+                          After the order we will give you 100 LC.
+                        </p>
+          						</div>
+          						<div class="column-25">
+          							<h4>
+          								<b>Become a helper</b>
+          							</h4>
+                        <button class="button-secondary button-full-width" data-modal-target="cloud-features">
+            								<i class="fas fa-window-maximize icon-left"></i>BECOME A HELPER
+            							</button>
+
+
+                          <div class="modal modal-large" data-modal="cloud-features" data-modal-dismissible="true">
+                          								<div class="modal-header">
+                          									<h3>
+                          										Become a helper
+                          									</h3>
+                          								</div>
+                          								<div class="modal-content">
+                          									<div class="column-row">
+                          										<div class="column-66">
+																								{{#if loggedIn}}
+																									{{#if profilePTrue}}
+																									<div class="container">
+																										<form onsubmit="placeOrder(); return false;" id="form_placeOrder" class="form-full-width">
+																											<div class="column-row">
+																												<div class="column-50">
+																													<div class="form-row">
+																														<label for="form-name">Legal / Official full name</label>
+																														<input id="full_name" type="text" required>
+																													</div>
+																													<div class="form-row">
+																														<label for="form-password">Delivery ZIP code</label>
+																														<input id="zip_code" type="text" required>
+																													</div>
+																													<div class="form-row">
+																														<label for="form-password">Street Address</label>
+																														<input id="street_address" type="text" required>
+																													</div>
+																													<div class="form-row">
+																														<label for="form-password">Phone number <i onclick="document.getElementById('pHnUmber').disabled = false; document.getElementById('edit_ph_uNmer').style.display = 'none';" style="cursor: pointer;" id="edit_ph_uNmer" class="fa fa-edit"></i></label>
+																														<input type="text" id="pHnUmber" disabled required value="{{profileDetails.[5]}}">
+																													</div>
+																													<div class="form-row">
+																														<label for="form-password">Delivery country and city</label>
+																														<input id="country_city" type="text" required>
+																													</div>
+																												</div>
+																												<div class="column-40">
+																													<div class="form-row">
+																														<label for="form-type">Which product would you like to order?</label>
+																														<select id="whichProduct">
+																															<option value="tshirt">T-shirt</option>
+																															<option value="sweater">Sweater</option>
+																														</select>
+																													</div>
+																													<div class="form-row" style="display: none;" id="select_div_color_sweater">
+																														<label for="form-type">Sweater color?</label>
+																														<select id="sweater_Color">
+																															<option value="purple">Purple</option>
+																															<option value="gray">Gray</option>
+																															<option value="red" disabled>Red (Out of)</option>
+																															<option value="golden" disabled>Golden (Out of)</option>
+																														</select>
+																													</div>
+																													<div class="form-row">
+																														<label for="form-type">Product size?</label>
+																														<select id="product_Size">
+																															<option value="s">S</option>
+																															<option value="m">M</option>
+																															<option value="l">L</option>
+																															<option value="xl">XL</option>
+																															<option value="xxl">XXL</option>
+																														</select>
+																													</div>
+																													<div class="form-row">
+																														<label for="form-type">Quantity?</label>
+																														<select id="quantity">
+																															<option value="1">1</option>
+																															<option value="2">2</option>
+																															<option value="3">3</option>
+																															<option value="4">4</option>
+																														</select>
+																													</div>
+																													<div class="form-row">
+																														<input type="checkbox" required>
+																														<label for="form-newsletter">By ordering the product, you agree to our terms of service.</label>
+																													</div>
+																													<div class="form-row">
+																														<input type="checkbox" disabled checked>
+																														<label for="form-newsletter">Finalizing your order entails a payment obligation.</label>
+																													</div>
+																													<div class="form-row group">
+																														<button class="button-secondary" id="purchaseButton"><i class="fas fa-window-maximize icon-left"></i> Place order</button>
+																														<button type="reset">Reset</button>
+																														<p style="color: green;" id="discount_teller" style="display: none;">-20% discount</p>
+																													</div>
+																												</div>
+																											</div>
+																										</form>
+																									</div>
+																									<p>
+																									We will attempt to ship your purchased product within 10 business days if the product has not been shipped, you may request a refund, but the privigils will be lost.
+																									</p>
+																									{{else}}
+																									<p>Your account is not complete. Click here to <a href="/phoneverification">verify your account</a>!</p>
+																									{{/if}}
+																								{{else}}
+																								<p>User account required to purchase, please <a href="/client">log in</a> here or <a href="/client">register</a>!</p>
+																								{{/if}}
+          									</div>
+          								</div>
+          							</div>
+          						</div>
+          					</div>
+          				</div>
+          			</section>
+								{{#if loggedIn}}
+									{{#if profilePTrue}}
+										<script type="text/javascript">
+										var defPrice = 20;
+										var percentage;
+										setInterval(function(){
+											if(document.getElementById("whichProduct").value == "sweater"){
+												document.getElementById("select_div_color_sweater").style.display = "block";
+											} else {
+												document.getElementById("select_div_color_sweater").style.display = "none";
+											}
+											if(document.getElementById("quantity").value > 1){
+												if(document.getElementById("quantity").value == 2){
+													percentage = (document.getElementById("quantity").value/10);
+													var newPrice = ((defPrice*document.getElementById("quantity").value)-(defPrice*document.getElementById("quantity").value)*percentage);
+												} else if(document.getElementById("quantity").value == 3){
+													percentage = (document.getElementById("quantity").value/10);
+													var newPrice = ((defPrice*document.getElementById("quantity").value)-(defPrice*document.getElementById("quantity").value)*percentage);
+												} else if(document.getElementById("quantity").value == 4){
+													percentage = (document.getElementById("quantity").value/10);
+													var newPrice = ((defPrice*document.getElementById("quantity").value)-(defPrice*document.getElementById("quantity").value)*percentage);
+												}
+												document.getElementById("discount_teller").style.display = "block";
+												document.getElementById("discount_teller").innerHTML = "-"+(percentage*100)+"% discount";
+												document.getElementById("purchaseButton").innerHTML = '<i class="fas fa-window-maximize icon-left"></i> €'+newPrice+' Place order';
+											} else {
+												document.getElementById("discount_teller").style.display = "none";
+												document.getElementById("discount_teller").innerHTML = "";
+												document.getElementById("purchaseButton").innerHTML = '<i class="fas fa-window-maximize icon-left"></i> €'+defPrice+' Place order';
+											}
+										}, 100);
+									function placeOrder(){
+										var full_name = document.getElementById("full_name").value;
+							      var zip_code = document.getElementById("zip_code").value;
+							      var street_address = document.getElementById("street_address").value;
+							      var country_city = document.getElementById("country_city").value;
+							      var whichProduct = document.getElementById("whichProduct").value;
+							      var sweater_Color = document.getElementById("sweater_Color").value;
+							      var product_Size = document.getElementById("product_Size").value;
+							      var quantity = document.getElementById("quantity").value;
+										var pHnUmber = document.getElementById("pHnUmber").value;
+										var pDa = "type=viprank&full_name="+full_name+"&zip_code="+zip_code+"&street_address="+street_address+"&country_city="+country_city+"&whichProduct="+whichProduct+"&sweater_Color="+sweater_Color+"&product_Size="+product_Size+"&quantity="+quantity+"&pHnUmber="+pHnUmber;
+										$.ajax({
+											type:"post",
+											url:"/order",
+											cache:false,
+											data:pDa,
+											error: function(){
+												Swal.fire(
+												'Something went wrong!',
+												'Sorry, we could not transfer your order, please try again in a few minutes!',
+												'error'
+												)
+									    },
+									    success: function(response){
+									       	if(response == "ordered"){
+														document.getElementById("form_placeOrder").innerHTML = "<h4><b>Thank you for your purchase!</b></h4><p>We've successfully added 100 LC to your account.<br>We've successfully moved you to rank V.I.P.<br></p>";
+														Swal.fire(
+													  'Success payment!',
+													  'Thank you for your order!',
+													  'success'
+														)
+													} else if(response == "notenoughtmoney"){
+														Swal.fire(
+														  'Not enought money!',
+														  'Your balance is too low, please charge your account!',
+														  'warning'
+														)
+													} else if(response == "notrecieving"){
+														Swal.fire(
+															'Not reciving new orders!',
+															'Sorry but we are not reciving new orders right now.',
+															'info'
+														)
+													} else if(response == "emptyfield"){
+														Swal.fire(
+															'Empty field(s)!',
+															'You must fill all the fields!',
+															'warning'
+														)
+													} else if(response == "invalid_informations"){
+														Swal.fire(
+															'Invalid informations!',
+															'Some informations are invalid, please check if you provided valid informations!',
+															'warning'
+														)
+													} else if(response == "notloggedIn"){
+														Swal.fire(
+															'Access Denied',
+															'You are not logged in.',
+															'error'
+														)
+													} else if(response == "Invalidzip"){
+														Swal.fire(
+															'Invalid zip',
+															'The provided zip code does not exist.',
+															'warning'
+														)
+													} else if(response == "Invalidphone"){
+														Swal.fire(
+															'Invalid phone!',
+															'The provided phone number is invalid.',
+															'warning'
+														)
+													} else if(response == "Invalidquantity"){
+														Swal.fire(
+															'Invalid quantity!',
+															'The selected quantity is not supported.',
+															'warning'
+														)
+													} else if(response == "invalidproduct"){
+														Swal.fire(
+															'Invalid product!',
+															'The product you have selected does not exist.',
+															'warning'
+														)
+													} else if(response == "invalid_sweater_color"){
+														Swal.fire(
+															'Invalid sweater color!',
+															'The color you have choosen is invalid!',
+															'warning'
+														)
+													} else if(response == "youalreadyhaveit"){
+														Swal.fire(
+															'You already have V.I.P',
+															'You already ordered this product.',
+															'warning'
+														)
+													}
+									    },
+									    timeout: 5000
+										});
+									}
+										</script>
+									{{/if}}
+									{{/if}}
